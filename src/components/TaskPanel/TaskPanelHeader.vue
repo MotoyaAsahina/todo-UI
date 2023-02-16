@@ -2,12 +2,28 @@
 import AddIcon from '/@/components/UI/Icon/AddIcon.vue'
 import DotsIcon from '/@/components/UI/Icon/DotsHorizontalIcon.vue'
 import ItemCount from '/@/components/UI/ItemCount.vue'
+import { useEditingTaskInfo } from '/@/lib/editor'
+import { computed } from 'vue'
 
 const props = defineProps<{
   groupId: string
   length: number
   name: string
 }>()
+
+const editingTaskInfo = useEditingTaskInfo()
+const editor = computed(() => editingTaskInfo.editor[props.groupId])
+
+const operateTaskEditor = () => {
+  if (
+    !editor.value.editing ||
+    (editor.value.editing && editor.value.id !== '')
+  ) {
+    editingTaskInfo.setEditing(props.groupId, '', '', [])
+  } else {
+    editor.value.editing = false
+  }
+}
 </script>
 
 <template>

@@ -3,14 +3,14 @@ import TagPicker from '/@/components/TaskEditor/TagPicker.vue'
 import CheckIcon from '/@/components/UI/Icon/CheckIcon.vue'
 import CloseIcon from '/@/components/UI/Icon/CloseIcon.vue'
 import { useEditingTaskInfo } from '/@/lib/editor'
+import { computed } from 'vue'
 
 const group = defineProps<{ id: string }>()
 
-// TODO: computed にしないといけない？
-const editor = useEditingTaskInfo().editor[group.id]
+const editor = computed(() => useEditingTaskInfo().editor[group.id])
 
 const closeEditors = () => {
-  editor.editing = false
+  editor.value.editing = false
 }
 
 const postTask = () => {
@@ -23,7 +23,9 @@ const postTask = () => {
     class="w-18rem p-2.4 rounded-lg border-1 border-gray-200 bg-white shadow-md"
   >
     <div class="mb-2">
-      <h3 class="text-base font-semibold">[[ newOrEdit() ]] Task</h3>
+      <h3 class="text-base font-semibold">
+        {{ editor.id === '' ? 'New' : 'Edit' }} Task
+      </h3>
     </div>
 
     <textarea

@@ -4,15 +4,14 @@ import TagIcon from '/@/components/UI/Icon/TagIcon.vue'
 import { Tag } from '/@/lib/apis'
 import { useEditingTaskInfo } from '/@/lib/editor'
 import { tags } from '/@/lib/fetch'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 const props = defineProps<{ id: string; tagIds: string[] }>()
 
 const openingTagList = ref(false)
 const selectingTags = new Set<Tag>(props.tagIds?.map(id => tags[id]) || [])
 
-// TODO: computed にしないといけない？
-const editor = useEditingTaskInfo().editor[props.id]
+const editor = computed(() => useEditingTaskInfo().editor[props.id])
 
 const selectTag = (tag: Tag) => {
   if (selectingTags.has(tag)) {
@@ -21,7 +20,7 @@ const selectTag = (tag: Tag) => {
     selectingTags.add(tag)
   }
 
-  editor.tags = Array.from(selectingTags).map(tag => tag.id)
+  editor.value.tags = Array.from(selectingTags).map(tag => tag.id)
 }
 </script>
 

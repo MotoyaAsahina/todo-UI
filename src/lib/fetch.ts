@@ -1,5 +1,6 @@
 import { Groups, Tag, Tasks, apis } from '/@/lib/apis'
 import { reactive, ref } from 'vue'
+import { useEditingTaskInfo } from '/@/lib/editor'
 
 const groups = ref<Groups>()
 const tasks = reactive({} as { [key: string]: Tasks })
@@ -30,6 +31,11 @@ const fetchData = async () => {
     await fetchTasks()
     await fetchGroups()
     await fetchTags()
+
+    for (const group of groups.value ?? []) {
+      const editingTaskInfo = useEditingTaskInfo()
+      editingTaskInfo.create(group.id)
+    }
   } catch (e) {
     // eslint-disable-next-line no-console
     console.log(e)
