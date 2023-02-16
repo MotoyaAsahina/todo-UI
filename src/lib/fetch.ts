@@ -12,10 +12,11 @@ const fetchGroups = async () => {
 }
 const fetchTasks = async () => {
   const res = await apis.getTasks()
+
+  for (const group of groups.value ?? []) {
+    tasks[group.id] = []
+  }
   for (const task of res.data) {
-    if (!tasks[task.group_id]) {
-      tasks[task.group_id] = []
-    }
     tasks[task.group_id].push(task)
   }
 }
@@ -28,8 +29,8 @@ const fetchTags = async () => {
 
 const fetchData = async () => {
   try {
-    await fetchTasks()
     await fetchGroups()
+    await fetchTasks()
     await fetchTags()
 
     for (const group of groups.value ?? []) {

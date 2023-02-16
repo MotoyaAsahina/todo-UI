@@ -17,7 +17,7 @@ const editor = computed(() => editingTaskInfo.editor[props.groupId])
 const operateTaskEditor = () => {
   if (
     !editor.value.editing ||
-    (editor.value.editing && editor.value.id !== '')
+    (editor.value.editing && !editingTaskInfo.isNew(props.groupId).value)
   ) {
     editingTaskInfo.setEditing(props.groupId, '', '', [])
   } else {

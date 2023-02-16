@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 const useEditingTaskInfo = defineStore('editingTasks', () => {
   const editor = ref(
@@ -27,18 +27,25 @@ const useEditingTaskInfo = defineStore('editingTasks', () => {
     }
   }
   const create = (groupId: string) => {
-    editor.value[groupId] = {
-      editing: false,
-      id: '',
-      raw: '',
-      tags: []
+    if (!editor.value[groupId]) {
+      editor.value[groupId] = {
+        editing: false,
+        id: '',
+        raw: '',
+        tags: []
+      }
     }
+  }
+
+  const isNew = (groupId: string) => {
+    return computed(() => editor.value[groupId].id === '')
   }
 
   return {
     editor,
     setEditing,
-    create
+    create,
+    isNew
   }
 })
 
