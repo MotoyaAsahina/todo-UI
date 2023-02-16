@@ -2,7 +2,7 @@ import { reactive, ref } from 'vue'
 import { apis, Groups, Tags, Tasks } from '/@/lib/apis'
 
 const groups = ref<Groups>()
-const tasks = reactive({} as { [key: string]: Tasks })
+const tasks = reactive(new Map<string, Tasks>())
 const tags = ref<Tags>()
 
 const fetchGroups = async () => {
@@ -12,10 +12,10 @@ const fetchGroups = async () => {
 const fetchTasks = async () => {
   const res = await apis.getTasks()
   for (const task of res.data) {
-    if (!tasks[task.group_id]) {
-      tasks[task.group_id] = []
+    if (!tasks.has(task.group_id)) {
+      tasks.set(task.group_id, [])
     }
-    tasks[task.group_id]?.push(task)
+    tasks.get(task.group_id)?.push(task)
   }
 }
 const fetchTags = async () => {
