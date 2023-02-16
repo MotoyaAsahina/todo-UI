@@ -2,7 +2,9 @@
 import TaskTag from '/@/components/TaskTag/TaskTag.vue'
 import CheckIcon from '/@/components/UI/Icon/CheckIcon.vue'
 import DeleteIcon from '/@/components/UI/Icon/DeleteIcon.vue'
+import { apis } from '/@/lib/apis'
 import { useEditingTaskInfo } from '/@/lib/editor'
+import { fetchData } from '/@/lib/fetch'
 import { selectStamp } from '/@/lib/stamp'
 import {
   checkPending,
@@ -44,6 +46,18 @@ const editTask = () => {
   window.setTimeout(function () {
     document.getElementById(`task-editor-input-${task.groupId}`)?.focus()
   }, 10)
+}
+
+const putTaskDone = async () => {
+  await apis.putTaskDone(task.taskId).then(() => {
+    fetchData()
+  })
+}
+
+const deleteTask = async () => {
+  await apis.deleteTask(task.taskId).then(() => {
+    fetchData()
+  })
 }
 </script>
 
