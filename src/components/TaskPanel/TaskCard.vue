@@ -2,6 +2,7 @@
 import TaskTag from '/@/components/TaskTag/TaskTag.vue'
 import CheckIcon from '/@/components/UI/Icon/CheckIcon.vue'
 import DeleteIcon from '/@/components/UI/Icon/DeleteIcon.vue'
+import { useEditingTaskInfo } from '/@/lib/editor'
 import { selectStamp } from '/@/lib/stamp'
 import {
   checkPending,
@@ -13,6 +14,7 @@ import {
 import { computed, ref } from 'vue'
 
 const task = defineProps<{
+  groupId: string
   taskId: string
   title: string
   dueDate: string
@@ -29,6 +31,13 @@ const description = computed(() =>
     ? makeURL(removeAnnotations(task.description))
     : makeBR(makeURL(removeAnnotations(task.description)))
 )
+
+const editingTaskInfo = useEditingTaskInfo()
+
+const editTask = () => {
+  const raw = `${task.title}\n${task.dueDate}\n${task.description}`
+  editingTaskInfo.setEditing(task.groupId, task.taskId, raw, task.tagIds)
+}
 </script>
 
 <template>
@@ -54,7 +63,7 @@ const description = computed(() =>
       <a
         class="cursor-pointer text-base"
         :class="!isPending ? 'font-bold' : ''"
-        @click="$emit('editTask', task)"
+        @click="editTask"
       >
         {{ task.title }}
       </a>

@@ -2,12 +2,15 @@
 import TaskEditor from '/@/components/TaskEditor/TaskEditor.vue'
 import TaskList from '/@/components/TaskPanel/TaskList.vue'
 import TaskPanelHeader from '/@/components/TaskPanel/TaskPanelHeader.vue'
+import { useEditingTaskInfo } from '/@/lib/editor'
 import { tasks } from '/@/lib/fetch'
 
 const group = defineProps<{
   id: string
   name: string
 }>()
+
+const editingTaskInfo = useEditingTaskInfo()
 </script>
 
 <template>
@@ -21,7 +24,11 @@ const group = defineProps<{
         :name="group.name"
       />
 
-      <task-editor :id="group.id" class="right-1 top-9 absolute z-8" />
+      <task-editor
+        v-if="editingTaskInfo.editor[group.id]?.editing || false"
+        :id="group.id"
+        class="right-1 top-9 absolute z-8"
+      />
 
       <task-list :group-id="group.id" />
     </div>

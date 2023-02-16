@@ -1,8 +1,21 @@
 <script setup lang="ts">
+import TagPicker from '/@/components/TaskEditor/TagPicker.vue'
 import CheckIcon from '/@/components/UI/Icon/CheckIcon.vue'
 import CloseIcon from '/@/components/UI/Icon/CloseIcon.vue'
+import { useEditingTaskInfo } from '/@/lib/editor'
 
 const group = defineProps<{ id: string }>()
+
+// TODO: computed にしないといけない？
+const editor = useEditingTaskInfo().editor[group.id]
+
+const closeEditors = () => {
+  editor.editing = false
+}
+
+const postTask = () => {
+  console.log(editor)
+}
 </script>
 
 <template>
@@ -15,10 +28,12 @@ const group = defineProps<{ id: string }>()
 
     <textarea
       :id="`task-editor-input-${group.id}`"
-      v-model="rawTaskData"
+      v-model="editor.raw"
       class="w-full p-1 text-sm resize-y border-1 border-gray-400"
       rows="6"
     ></textarea>
+
+    <tag-picker :id="group.id" :tag-ids="editor.tags" />
 
     <div class="flex items-center justify-end mt-2">
       <a @click="closeEditors"><close-icon /></a>

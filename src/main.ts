@@ -1,6 +1,11 @@
 import App from './App.vue'
 import './common.css'
+import { createPinia } from 'pinia'
 import 'virtual:windi.css'
 import { createApp } from 'vue'
 
-createApp(App).mount('#app')
+const pinia = createPinia()
+const app = createApp(App)
+
+app.use(pinia)
+app.mount('#app')

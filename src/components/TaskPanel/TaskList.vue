@@ -12,6 +12,7 @@ const props = defineProps<{ groupId: string }>()
   >
     <template v-for="task in tasks[props.groupId] || []" :key="task.id">
       <task-card
+        :group-id="props.groupId"
         :task-id="task.id"
         :title="task.title"
         :due-date="task.due_date"
