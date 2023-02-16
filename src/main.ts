@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import './common.css'
 import App from './App.vue'
 import 'virtual:windi.css'
 
