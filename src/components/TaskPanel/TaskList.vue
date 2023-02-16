@@ -10,7 +10,7 @@ const props = defineProps<{ groupId: string }>()
     style="width: 100%; height: calc(100% - 2.2rem)"
     class="px-1.6 overflow-scroll"
   >
-    <template v-for="task in tasks.get(props.groupId)" :key="task.id">
+    <template v-for="task in tasks[props.groupId] || []" :key="task.id">
       <task-card
         :task-id="task.id"
         :title="task.title"

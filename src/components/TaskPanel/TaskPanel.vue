@@ -14,7 +14,7 @@ const group = defineProps<{
     <div class="w-80.8 h-full rounded-lg border-1 border-gray-200 bg-gray-50">
       <task-panel-header
         :group-id="group.id"
-        :length="tasks.get(group.id)?.length || 0"
+        :length="tasks[group.id]?.length || 0"
         :name="group.name"
       />
       <task-list :group-id="group.id" />
