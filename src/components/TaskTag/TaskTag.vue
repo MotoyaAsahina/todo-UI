@@ -1,8 +1,8 @@
 <script setup lang="ts">
-const tag = defineProps<{
+import { tags } from '/@/lib/fetch'
+
+const props = defineProps<{
   tagId: string
-  name: string
-  color: string
 }>()
 
 const pickBlackOrWhite = (color: string) => {
@@ -20,11 +20,13 @@ const pickBlackOrWhite = (color: string) => {
   <div
     class="h-1.1rem cursor-pointer px-2 rounded-xl inline-block"
     :style="{
-      'background-color': tag.color,
-      color: pickBlackOrWhite(tag.color)
+      'background-color': tags[props.tagId]?.color,
+      color: pickBlackOrWhite(tags[props.tagId]?.color)
     }"
   >
-    <p class="text-xs leading-1.1rem font-medium">{{ tag.name }}</p>
+    <p class="text-xs leading-1.1rem font-medium">
+      {{ tags[props.tagId]?.name }}
+    </p>
   </div>
 </template>
 

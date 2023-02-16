@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { Tag, Task } from '/@/lib/apis'
-import { tags } from '/@/lib/fetch'
+import { Task } from '/@/lib/apis'
 import { selectStamp } from '/@/lib/stamp'
 import { ref } from 'vue'
 import TaskTag from '/@/components/TaskTag/TaskTag.vue'
@@ -30,10 +29,6 @@ const formatDueDate = (d: string) => {
   let hour = ('00' + date.getHours()).slice(-2)
   let minute = ('00' + date.getMinutes()).slice(-2)
   return `${year}${month}/${day}(${weekDay}) ${hour}:${minute}`
-}
-
-const findTag = (id: string): Tag => {
-  return tags.value?.find(t => t.id === id) ?? { id: '', name: '', color: '' }
 }
 
 const stamp = (d: string): string => selectStamp(d)
@@ -94,13 +89,7 @@ const makeBR = (text: string) => {
       <p class="mr-1 text-base leading-1.1rem" @click="cardClick = !cardClick">
         {{ formatDueDate(task.dueDate) }}
       </p>
-      <task-tag
-        v-for="tagID in task.tagIds"
-        :key="tagID"
-        :tag-id="tagID"
-        :name="findTag(tagID).name"
-        :color="findTag(tagID).color"
-      />
+      <task-tag v-for="tagID in task.tagIds" :key="tagID" :tag-id="tagID" />
     </div>
     <div
       v-if="removeAnnotations(task.description)?.length > 0"
