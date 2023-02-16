@@ -45,6 +45,8 @@ const postTask = async () => {
 <template>
   <div
     class="w-18rem p-2.4 rounded-lg border-1 border-gray-200 bg-white shadow-md"
+    @keydown.meta.enter="postTask"
+    @keydown.esc="closeEditors"
   >
     <div class="mb-2">
       <h3 class="text-base font-semibold">
