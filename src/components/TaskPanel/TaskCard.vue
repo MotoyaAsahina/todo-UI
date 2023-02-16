@@ -37,6 +37,13 @@ const editingTaskInfo = useEditingTaskInfo()
 const editTask = () => {
   const raw = `${task.title}\n${task.dueDate}\n${task.description}`
   editingTaskInfo.setEditing(task.groupId, task.taskId, raw, task.tagIds)
+
+  document
+    .getElementById(`task-editor-input-${task.groupId}`)
+    ?.removeAttribute('style')
+  window.setTimeout(function () {
+    document.getElementById(`task-editor-input-${task.groupId}`)?.focus()
+  }, 10)
 }
 </script>
 

@@ -23,6 +23,13 @@ const operateTaskEditor = () => {
   } else {
     editor.value.editing = false
   }
+
+  document
+    .getElementById(`task-editor-input-${props.groupId}`)
+    ?.removeAttribute('style')
+  window.setTimeout(function () {
+    document.getElementById(`task-editor-input-${props.groupId}`)?.focus()
+  }, 10)
 }
 </script>
 
