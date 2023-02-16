@@ -68,11 +68,12 @@ const deleteTask = async () => {
     @mouseover="cardHover = true"
     @mouseleave="cardHover = false"
   >
-    <!-- Icons -->
     <div
       v-show="isPending"
       class="absolute rounded-lg bg-gray-100 w-full h-full left-0 top-0 bg-opacity-40 pointer-events-none"
     ></div>
+
+    <!-- Icons -->
     <div v-show="cardHover" class="absolute top-0 right-0 mr-1.6 mt-1.2 flex">
       <a @click="putTaskDone"><check-icon class="mr-0.5" /></a>
       <a @click="deleteTask"><delete-icon /></a>
