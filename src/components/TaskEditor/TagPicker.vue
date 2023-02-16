@@ -9,18 +9,20 @@ import { computed, ref } from 'vue'
 const props = defineProps<{ id: string; tagIds: string[] }>()
 
 const openingTagList = ref(false)
-const selectingTags = new Set<Tag>(props.tagIds?.map(id => tags[id]) || [])
+const selectingTags = computed(
+  () => new Set<Tag>(props.tagIds?.map(id => tags[id]) || [])
+)
 
 const editor = computed(() => useEditingTaskInfo().editor[props.id])
 
 const selectTag = (tag: Tag) => {
-  if (selectingTags.has(tag)) {
-    selectingTags.delete(tag)
+  if (selectingTags.value.has(tag)) {
+    selectingTags.value.delete(tag)
   } else {
-    selectingTags.add(tag)
+    selectingTags.value.add(tag)
   }
 
-  editor.value.tags = Array.from(selectingTags).map(tag => tag.id)
+  editor.value.tags = Array.from(selectingTags.value).map(tag => tag.id)
 }
 </script>
 
