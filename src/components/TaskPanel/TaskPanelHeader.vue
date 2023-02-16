@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import ItemCount from '/@/components/UI/ItemCount.vue'
 import AddIcon from '/@/components/UI/Icon/AddIcon.vue'
 import DotsIcon from '/@/components/UI/Icon/DotsHorizontalIcon.vue'
+import ItemCount from '/@/components/UI/ItemCount.vue'
 
 const props = defineProps<{
   groupId: string

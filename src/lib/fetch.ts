@@ -1,5 +1,5 @@
+import { Groups, Tag, Tasks, apis } from '/@/lib/apis'
 import { reactive, ref } from 'vue'
-import { apis, Groups, Tag, Tasks } from '/@/lib/apis'
 
 const groups = ref<Groups>()
 const tasks = reactive({} as { [key: string]: Tasks })

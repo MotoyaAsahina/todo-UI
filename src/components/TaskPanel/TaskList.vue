@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { tasks } from '/@/lib/fetch'
 import TaskCard from '/@/components/TaskPanel/TaskCard.vue'
+import { tasks } from '/@/lib/fetch'
 
 const props = defineProps<{ groupId: string }>()
 </script>

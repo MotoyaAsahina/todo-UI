@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { selectStamp } from '/@/lib/stamp'
-import { computed, ref } from 'vue'
 import TaskTag from '/@/components/TaskTag/TaskTag.vue'
 import CheckIcon from '/@/components/UI/Icon/CheckIcon.vue'
 import DeleteIcon from '/@/components/UI/Icon/DeleteIcon.vue'
+import { selectStamp } from '/@/lib/stamp'
 import {
-  formatDueDate,
   checkPending,
+  formatDueDate,
   makeBR,
   makeURL,
   removeAnnotations
 } from '/@/lib/text'
+import { computed, ref } from 'vue'
 
 const task = defineProps<{
   taskId: string
