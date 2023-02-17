@@ -2,9 +2,9 @@
 import SmallList from '/@/components/SmallList/SmallList.vue'
 import DownArrowIcon from '/@/components/UI/Icon/DownArrowIcon.vue'
 import UpArrowIcon from '/@/components/UI/Icon/UpArrowIcon.vue'
-import { Group } from '/@/lib/apis'
+import { Group, apis } from '/@/lib/apis'
 import { useEditingGroupOrTagInfo } from '/@/lib/editor'
-import { groups } from '/@/lib/fetch'
+import { fetchData, groups } from '/@/lib/fetch'
 
 const editingInfo = useEditingGroupOrTagInfo()
 
@@ -15,6 +15,18 @@ const setEditGroup = (group: Group) => {
   window.setTimeout(function () {
     document.getElementById('group-list-editor-input')?.focus()
   }, 10)
+}
+
+const moveGroup = async (id: string, direction: 'up' | 'down') => {
+  if (direction === 'up') {
+    await apis.putGroupUp(id).then(() => {
+      fetchData()
+    })
+  } else {
+    await apis.putGroupDown(id).then(() => {
+      fetchData()
+    })
+  }
 }
 </script>
 
