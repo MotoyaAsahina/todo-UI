@@ -7,6 +7,8 @@ const groups = ref<Groups>()
 const tasks = reactive({} as { [key: string]: Tasks })
 const tags = reactive({} as { [key: string]: Tag })
 
+const tagsLength = ref(0)
+
 const fetchGroups = async () => {
   const res = await apis.getGroups()
   groups.value = res.data.filter(g => !/^\[Archived].*$/.test(g.name))
@@ -22,9 +24,11 @@ const fetchTasks = async () => {
   }
 }
 const fetchTags = async () => {
+  tagsLength.value = 0
   const res = await apis.getTags()
   for (const tag of res.data) {
     tags[tag.id] = tag
+    tagsLength.value++
   }
 }
 
@@ -46,4 +50,4 @@ const fetchData = async () => {
   }
 }
 
-export { groups, tasks, tags, fetchData }
+export { groups, tasks, tags, tagsLength, fetchData }
