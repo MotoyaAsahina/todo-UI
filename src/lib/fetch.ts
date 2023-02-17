@@ -11,7 +11,7 @@ const tagsLength = ref(0)
 
 const fetchGroups = async () => {
   const res = await apis.getGroups()
-  groups.value = res.data.filter(g => !/^\[Archived].*$/.test(g.name))
+  groups.value = res.data
 }
 const fetchTasks = async () => {
   const res = await apis.getTasks()

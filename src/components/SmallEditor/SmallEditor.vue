@@ -8,7 +8,7 @@ import CloseIcon from '/@/components/UI/Icon/CloseIcon.vue'
     class="w-60 p-2.4 bg-white rounded-lg border-1 border-gray-200 shadow-md"
   >
     <div class="mb-2">
-      <h3 class="text-base font-semibold">[[newOrEdit()]]</h3>
+      <h3 class="text-base font-semibold">[[ newOrEdit() ]]</h3>
     </div>
     <textarea
       id="group-list-editor-input"

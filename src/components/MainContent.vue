@@ -7,7 +7,11 @@ import { groups } from '/@/lib/fetch'
   <div
     class="w-full flex-grow p-1.6 overflow-scroll flex <sm:(snap snap-mandatory snap-x)"
   >
-    <template v-for="group in groups" :key="group.id">
+    <template
+      v-for="group in groups?.filter(g => !/^\[Archived].*$/.test(g.name)) ||
+      []"
+      :key="group.id"
+    >
       <task-panel :id="group.id" :name="group.name" />
     </template>
   </div>

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import Icon from 'vue-material-design-icons/ArrowDown.vue'
 
-const size = withDefaults(defineProps<number>(), 20)
+const props = defineProps<{ size?: number }>()
 </script>
 
 <template>
   <icon
     class="cursor-pointer items-center flex"
-    :size="size"
+    :size="props.size || 20"
     fill-color="#696969"
   />
 </template>
