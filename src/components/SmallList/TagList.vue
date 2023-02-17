@@ -1,11 +1,24 @@
 <script setup lang="ts">
 import SmallList from '/@/components/SmallList/SmallList.vue'
 import TaskTag from '/@/components/TaskTag/TaskTag.vue'
+import { Tag } from '/@/lib/apis'
+import { useEditingGroupOrTagInfo } from '/@/lib/editor'
 import { tags, tagsLength } from '/@/lib/fetch'
+
+const editingInfo = useEditingGroupOrTagInfo()
+
+const setEditTag = (tag: Tag) => {
+  editingInfo.setEditing('tag', tag.id, `${tag.name}\n${tag.color}`)
+
+  document.getElementById('tag-list-editor-input')?.removeAttribute('style')
+  window.setTimeout(function () {
+    document.getElementById('tag-list-editor-input')?.focus()
+  }, 10)
+}
 </script>
 
 <template>
-  <small-list title="Tags" :count="tagsLength">
+  <small-list type="tag" :count="tagsLength">
     <div
       v-for="(tag, id, index) in tags"
       :key="id"

@@ -41,12 +41,29 @@ const useEditingTaskInfo = defineStore('editingTasks', () => {
     return computed(() => editor.value[groupId].id === '')
   }
 
-  return {
-    editor,
-    setEditing,
-    create,
-    isNew
-  }
+  return { editor, setEditing, create, isNew }
 })
 
-export { useEditingTaskInfo }
+const useEditingGroupOrTagInfo = defineStore('editingGroups', () => {
+  const editor = ref({
+    group: { editing: false, id: '', raw: '' },
+    tag: { editing: false, id: '', raw: '' }
+  } as { [key: string]: { editing: boolean; id: string; raw: string } })
+
+  const setEditing = (type: string, id_: string, raw_: string) => {
+    editor.value[type] = {
+      editing: true,
+      id: id_,
+      raw: raw_
+    }
+  }
+
+  const cancelEditing = () => {
+    editor.value.group.editing = false
+    editor.value.tag.editing = false
+  }
+
+  return { editor, setEditing, cancelEditing }
+})
+
+export { useEditingTaskInfo, useEditingGroupOrTagInfo }

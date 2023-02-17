@@ -3,6 +3,17 @@ import GroupList from '/@/components/SmallList/GroupList.vue'
 import TagList from '/@/components/SmallList/TagList.vue'
 import OrderIcon from '/@/components/UI/Icon/ReorderHorizontalIcon.vue'
 import TagIcon from '/@/components/UI/Icon/TagIcon.vue'
+import { useSmallListState } from '/@/lib/state'
+
+const smallListState = useSmallListState()
+
+const operateGroupEditor = () => {
+  smallListState.operateGroupList()
+}
+
+const operateTagEditor = () => {
+  smallListState.operateTagList()
+}
 </script>
 
 <template>
@@ -13,8 +24,14 @@ import TagIcon from '/@/components/UI/Icon/TagIcon.vue'
       <a @click="operateTagEditor"><tag-icon class="ml-1.5" /></a>
     </div>
 
-    <tag-list v-show="true" class="absolute right-0 top-8" />
-    <group-list v-show="false" class="absolute right-0 top-8" />
+    <tag-list
+      v-show="smallListState.opening['tag']"
+      class="absolute right-0 top-8"
+    />
+    <group-list
+      v-show="smallListState.opening['group']"
+      class="absolute right-0 top-8"
+    />
   </header>
 </template>
 

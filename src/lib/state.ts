@@ -13,4 +13,23 @@ const useTaskPanelMenuState = defineStore('taskPanel', () => {
   return { opening, create }
 })
 
-export { useTaskPanelMenuState }
+const useSmallListState = defineStore('smallList', () => {
+  const opening = ref({
+    group: false,
+    tag: false
+  } as { [key: string]: boolean })
+
+  const operateGroupList = () => {
+    opening.value['tag'] = false
+    opening.value['group'] = !opening.value['group']
+  }
+
+  const operateTagList = () => {
+    opening.value['group'] = false
+    opening.value['tag'] = !opening.value['tag']
+  }
+
+  return { opening, operateGroupList, operateTagList }
+})
+
+export { useTaskPanelMenuState, useSmallListState }

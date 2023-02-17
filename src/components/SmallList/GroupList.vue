@@ -2,11 +2,24 @@
 import SmallList from '/@/components/SmallList/SmallList.vue'
 import DownArrowIcon from '/@/components/UI/Icon/DownArrowIcon.vue'
 import UpArrowIcon from '/@/components/UI/Icon/UpArrowIcon.vue'
+import { Group } from '/@/lib/apis'
+import { useEditingGroupOrTagInfo } from '/@/lib/editor'
 import { groups } from '/@/lib/fetch'
+
+const editingInfo = useEditingGroupOrTagInfo()
+
+const setEditGroup = (group: Group) => {
+  editingInfo.setEditing('group', group.id, group.name)
+
+  document.getElementById('group-list-editor-input')?.removeAttribute('style')
+  window.setTimeout(function () {
+    document.getElementById('group-list-editor-input')?.focus()
+  }, 10)
+}
 </script>
 
 <template>
-  <small-list title="Groups" :count="groups?.length || 0">
+  <small-list type="group" :count="groups?.length || 0">
     <div
       v-for="group in groups"
       :key="group.id"

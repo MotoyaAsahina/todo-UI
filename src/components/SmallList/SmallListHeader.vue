@@ -2,14 +2,34 @@
 import SmallEditor from '/@/components/SmallEditor/SmallEditor.vue'
 import AddIcon from '/@/components/UI/Icon/AddIcon.vue'
 import ItemCount from '/@/components/UI/ItemCount.vue'
+import { useEditingGroupOrTagInfo } from '/@/lib/editor'
+import { computed } from 'vue'
 
 const props = defineProps<{
+  type: 'group' | 'tag'
   title: string
   count: number
 }>()
 
-const addItem = () => {
-  console.log('add item')
+const editingInfo = useEditingGroupOrTagInfo()
+const editor = computed(() => editingInfo.editor[props.type])
+
+const operateEditor = () => {
+  if (
+    !editor.value.editing ||
+    (editor.value.editing && editor.value.id !== '')
+  ) {
+    editingInfo.setEditing(props.type, '', '')
+  } else {
+    editor.value.editing = false
+  }
+
+  document
+    .getElementById(`${props.type}-list-editor-input`)
+    ?.removeAttribute('style')
+  window.setTimeout(function () {
+    document.getElementById(`${props.type}-list-editor-input`)?.focus()
+  }, 10)
 }
 </script>
 
@@ -19,9 +39,13 @@ const addItem = () => {
   >
     <item-count :count="props.count" />
     <h3 class="flex-1 pl-1.6 text-base font-semibold">{{ props.title }}</h3>
-    <a @click="addItem"><add-icon /></a>
+    <a @click="operateEditor"><add-icon /></a>
 
-    <small-editor v-show="false" class="absolute top-6.2 right-1" />
+    <small-editor
+      v-show="editingInfo.editor[props.type].editing"
+      class="absolute top-6.2 right-1"
+      :type="props.type"
+    />
   </div>
 </template>
 
