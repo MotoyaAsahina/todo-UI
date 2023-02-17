@@ -2,14 +2,20 @@
 import TaskEditor from '/@/components/TaskEditor/TaskEditor.vue'
 import TaskList from '/@/components/TaskPanel/TaskList.vue'
 import TaskPanelHeader from '/@/components/TaskPanel/TaskPanelHeader.vue'
+import TaskPanelMenu from '/@/components/TaskPanelMenu/TaskPanelMenu.vue'
 import { useEditingTaskInfo } from '/@/lib/editor'
 import { tasks } from '/@/lib/fetch'
+import { useTaskPanelMenuState } from '/@/lib/state'
+import { computed } from 'vue'
 
 const group = defineProps<{
   id: string
   name: string
 }>()
 
+const taskPanelMenuState = computed(
+  () => useTaskPanelMenuState().opening[group.id]
+)
 const editingTaskInfo = useEditingTaskInfo()
 </script>
 
@@ -27,6 +33,11 @@ const editingTaskInfo = useEditingTaskInfo()
       <task-editor
         v-if="editingTaskInfo.editor[group.id]?.editing || false"
         :id="group.id"
+        class="right-1 top-9 absolute z-8"
+      />
+
+      <task-panel-menu
+        v-if="taskPanelMenuState"
         class="right-1 top-9 absolute z-8"
       />
 

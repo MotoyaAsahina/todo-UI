@@ -1,5 +1,6 @@
 import { Groups, Tag, Tasks, apis } from '/@/lib/apis'
 import { useEditingTaskInfo } from '/@/lib/editor'
+import { useTaskPanelMenuState } from '/@/lib/state'
 import { reactive, ref } from 'vue'
 
 const groups = ref<Groups>()
@@ -36,6 +37,8 @@ const fetchData = async () => {
     for (const group of groups.value ?? []) {
       const editingTaskInfo = useEditingTaskInfo()
       editingTaskInfo.create(group.id)
+      const taskPanelMenuState = useTaskPanelMenuState()
+      taskPanelMenuState.create(group.id)
     }
   } catch (e) {
     // eslint-disable-next-line no-console

@@ -3,6 +3,7 @@ import AddIcon from '/@/components/UI/Icon/AddIcon.vue'
 import DotsIcon from '/@/components/UI/Icon/DotsHorizontalIcon.vue'
 import ItemCount from '/@/components/UI/ItemCount.vue'
 import { useEditingTaskInfo } from '/@/lib/editor'
+import { useTaskPanelMenuState } from '/@/lib/state'
 import { computed } from 'vue'
 
 const props = defineProps<{
@@ -11,6 +12,7 @@ const props = defineProps<{
   name: string
 }>()
 
+const taskPanelMenuState = useTaskPanelMenuState()
 const editingTaskInfo = useEditingTaskInfo()
 const editor = computed(() => editingTaskInfo.editor[props.groupId])
 
@@ -19,6 +21,7 @@ const operateTaskEditor = () => {
     !editor.value.editing ||
     (editor.value.editing && !editingTaskInfo.isNew(props.groupId).value)
   ) {
+    taskPanelMenuState.opening[props.groupId] = false
     editingTaskInfo.setEditing(props.groupId, '', '', [])
   } else {
     editor.value.editing = false
@@ -30,6 +33,12 @@ const operateTaskEditor = () => {
   window.setTimeout(function () {
     document.getElementById(`task-editor-input-${props.groupId}`)?.focus()
   }, 10)
+}
+
+const operateMenu = () => {
+  if (editor.value.editing) editor.value.editing = false
+  taskPanelMenuState.opening[props.groupId] =
+    !taskPanelMenuState.opening[props.groupId]
 }
 </script>
 

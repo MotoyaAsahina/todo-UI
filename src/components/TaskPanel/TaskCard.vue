@@ -6,6 +6,7 @@ import { apis } from '/@/lib/apis'
 import { useEditingTaskInfo } from '/@/lib/editor'
 import { fetchData } from '/@/lib/fetch'
 import { selectStamp } from '/@/lib/stamp'
+import { useTaskPanelMenuState } from '/@/lib/state'
 import {
   checkPending,
   formatDueDate,
@@ -35,8 +36,11 @@ const description = computed(() =>
 )
 
 const editingTaskInfo = useEditingTaskInfo()
+const taskPanelMenuState = useTaskPanelMenuState()
 
 const editTask = () => {
+  taskPanelMenuState.opening[task.groupId] = false
+
   const raw = `${task.title}\n${task.dueDate}\n${task.description}`
   editingTaskInfo.setEditing(task.groupId, task.taskId, raw, task.tagIds)
 
