@@ -14,7 +14,6 @@ import TagIcon from '/@/components/UI/Icon/TagIcon.vue'
     </div>
 
     <tag-list v-show="true" class="absolute right-0 top-8" />
-
     <group-list v-show="false" class="absolute right-0 top-8" />
   </header>
 </template>
