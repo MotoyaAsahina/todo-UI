@@ -38,7 +38,7 @@ const selectTag = (tag: Tag) => {
     />
 
     <div
-      v-if="openingTagList"
+      v-show="openingTagList"
       class="top-0 left-6 w-60 absolute bg-white rounded-lg border-1 border-gray-200 shadow-md z-10"
     >
       <div class="m-2 flex flex-wrap gap-1">

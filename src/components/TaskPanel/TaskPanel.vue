@@ -26,12 +26,12 @@ const editingTaskInfo = useEditingTaskInfo()
     >
       <task-panel-header
         :group-id="group.id"
-        :length="tasks[group.id]?.length || 0"
+        :length="tasks[group.id]?.length ?? 0"
         :name="group.name"
       />
 
       <task-editor
-        v-if="editingTaskInfo.editor[group.id]?.editing || false"
+        v-if="editingTaskInfo.editor[group.id]?.editing"
         :id="group.id"
         class="right-1 top-9 absolute z-8"
       />
