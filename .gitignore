@@ -23,5 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
+scripts
+
 # Generated API scripts
 src/lib/apis/generated/*
