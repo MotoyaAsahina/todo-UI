@@ -25,7 +25,7 @@ const getItemsSlice = (start: number, end: number) => {
 const dragOver = (event: DragEvent) => {
   const el = event.currentTarget as HTMLElement
 
-  if (chosenItem.value === el) {
+  if (getItemIndex(chosenItem.value!) === -1 || chosenItem.value === el) {
     return
   }
 
