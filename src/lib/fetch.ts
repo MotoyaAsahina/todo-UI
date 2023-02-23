@@ -19,7 +19,7 @@ const fetchTasks = async () => {
   for (const group of groups.value ?? []) {
     tasks[group.id] = []
   }
-  for (const task of res.data) {
+  for (const task of res.data ?? []) {
     tasks[task.group_id].push(task)
   }
 }
